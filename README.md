@@ -1,4 +1,6 @@
-Para el setup inicial del proyecto, despues de clonar el repositorio accedan a la terminal de VS y utilizen el comando "npm install" en la carpeta raiz.
+Para el setup inicial del proyecto, despues de clonar el repositorio accedan a la terminal de VS y utilizen el siguiente comando en la carpeta raiz.
+    
+    "npm install" 
 
 Dependencias utilizadas:
 
@@ -20,4 +22,9 @@ Dependencias utilizadas:
     "react-native-web": "^0.19.13": Permite visualizacion de la app en navegadores web (como Google Chrome de escritorio), buena para prototipado rapido.
     "react-native-webview": "^13.13.2": Permite acceso a visualizaciones de paginas web desde la app, podria ser util en un futuro.
 
-    
+A partir del 15/02/2025, el proyecto es compilable y se puede hacer una build completa para Android (Prueba en iOS pendiente). 
+Para hacer una build de Android utiliza el comando:
+
+    npx expo run:android
+
+Requiere la SDK de Android instalada y un dispositivo con depuracion USB activada conecctado.
