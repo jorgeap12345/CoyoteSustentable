@@ -1,6 +1,7 @@
 Para el setup inicial del proyecto, despues de clonar el repositorio accedan a la terminal de VS y utilizen el comando "npm install" en la carpeta raiz.
 
 Dependencias utilizadas:
+
     "expo": "~52.0.35": Se encarga de compilacion y manejo de React Native y su ambiente movil. En caso de causar problemas de compatibilidad puede ser eyectado.
     "expo-barcode-scanner": "^13.0.1": Requiere de "expo-camera", permite lectura de diferentes codigos, incluyendo QRs.
     "expo-camera": "^16.0.16": Maneja uso de camara.
