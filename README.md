@@ -21,6 +21,7 @@ Dependencias utilizadas:
     "react-native-svg": "^15.11.1": Dependecia requerida de "react-native-pie-chart" y "react-native-pie-chart", permite la renderizacion y generacion de imagenes SVG.
     "react-native-web": "^0.19.13": Permite visualizacion de la app en navegadores web (como Google Chrome de escritorio), buena para prototipado rapido.
     "react-native-webview": "^13.13.2": Permite acceso a visualizaciones de paginas web desde la app, podria ser util en un futuro.
+    "react-native-picker-select": "^9.3.1": Permite usar campos de opcion multiple de forma nativa en Android y iOS.
 
 A partir del 15/02/2025, el proyecto es compilable y se puede hacer una build completa para Android (Prueba en iOS pendiente). 
 Para hacer una build de Android utiliza el comando:
@@ -28,3 +29,5 @@ Para hacer una build de Android utiliza el comando:
     npx expo run:android
 
 Requiere la SDK de Android instalada y un dispositivo con depuracion USB activada conecctado.
+
+
