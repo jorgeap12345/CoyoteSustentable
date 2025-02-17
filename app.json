@@ -19,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.CS"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -28,7 +29,9 @@
       [
         "expo-font",
         {
-          "fonts": ["./assets/fonts/Roboto-VariableFont_wdth,wght.ttf"]
+          "fonts": [
+            "./assets/fonts/Roboto-VariableFont_wdth,wght.ttf"
+          ]
         }
       ]
     ]
