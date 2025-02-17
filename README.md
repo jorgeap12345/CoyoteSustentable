@@ -22,6 +22,7 @@ Dependencias utilizadas:
     "react-native-web": "^0.19.13": Permite visualizacion de la app en navegadores web (como Google Chrome de escritorio), buena para prototipado rapido.
     "react-native-webview": "^13.13.2": Permite acceso a visualizaciones de paginas web desde la app, podria ser util en un futuro.
     "react-native-picker-select": "^9.3.1": Permite usar campos de opcion multiple de forma nativa en Android y iOS.
+    "react-hook-form": "^7.54.2": Permite creacion de formularios similares a HTML y recopilacion facil de los datos de estos.
 
 A partir del 15/02/2025, el proyecto es compilable y se puede hacer una build completa para Android (Prueba en iOS pendiente). 
 Para hacer una build de Android utiliza el comando:
