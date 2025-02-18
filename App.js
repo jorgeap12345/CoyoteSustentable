@@ -9,6 +9,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useForm, Controller  } from 'react-hook-form';
 import { LargeInput, MultOptionInput, SmallInput } from './components/InputFields';
 import RNPickerSelect from 'react-native-picker-select';
+import { DataField } from './components/DataFields';
 
 export default function App() {
 
@@ -26,7 +27,6 @@ export default function App() {
     defaultValues: {
       Nombre: "",
       Apellido: "",
-      Languaje: "",
     },
   })
   
@@ -73,6 +73,8 @@ export default function App() {
 
       
         <ButtonLarge buttonLabel='Subir informacion' pressHandler={handleSubmit(onSubmit)}/>
+
+        <DataField fieldName="DATO:" fieldContents="Probably"/>
 
 
         <StatusBar style="auto" />
