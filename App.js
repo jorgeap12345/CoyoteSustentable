@@ -7,7 +7,8 @@ import { ButtonLarge, ButtonQRScreen, ButtonThin } from './components/Buttons';
 import * as SplashScreen from 'expo-splash-screen';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useForm, Controller  } from 'react-hook-form';
-import { LargeInput, SmallInput } from './components/InputFields';
+import { LargeInput, MultOptionInput, SmallInput } from './components/InputFields';
+import RNPickerSelect from 'react-native-picker-select';
 
 export default function App() {
 
@@ -16,7 +17,7 @@ export default function App() {
     'Roboto': require('./assets/fonts/Roboto-VariableFont_wdth,wght.ttf'),
   });
 
-  //BasicTemplate for handling user input.
+  //BasicTemplate for handling user input fields.
   const {
     control,
     handleSubmit,
@@ -25,6 +26,7 @@ export default function App() {
     defaultValues: {
       Nombre: "",
       Apellido: "",
+      Languaje: "",
     },
   })
   
@@ -61,8 +63,16 @@ export default function App() {
         <LargeInput control={control} errors={errors} field='Nombre'/>
 
         <SmallInput control={control} errors={errors} isRequired={false} field='Apellido'/>
+
+        <MultOptionInput control={control} errors={errors} 
+        options={[
+          { label: "OPTION 1", value: "value1"},
+          { label: "OPTION 2", value: "value2"},
+          { label: "OPTION 3", value: "value3"}
+        ]}/>
+
       
-      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+        <ButtonLarge buttonLabel='Subir informacion' pressHandler={handleSubmit(onSubmit)}/>
 
 
         <StatusBar style="auto" />

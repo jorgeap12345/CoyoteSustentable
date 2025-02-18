@@ -1,7 +1,7 @@
 import {StyleSheet, View, Text, TouchableHighlight, Alert} from "react-native";
 import { GlobalStyles } from "../GlobalStyles";
 
-export function ButtonLarge({buttonColor = "#0b532e", buttonLabel = "TEXTO DE BOTON"}){
+export function ButtonLarge({buttonColor = "#0b532e", buttonLabel = "TEXTO DE BOTON", pressHandler}){
 
     const onPressButton = () => {
         Alert.alert('You tapped the button!');
@@ -11,7 +11,7 @@ export function ButtonLarge({buttonColor = "#0b532e", buttonLabel = "TEXTO DE BO
         <TouchableHighlight  
             style={[styles.buttonLargeContainer, {backgroundColor: buttonColor}]} 
             underlayColor="rgb(12, 69, 39)" 
-            onPress={onPressButton}>
+            onPress={pressHandler}>
                 <View  >
                     <Text style={[GlobalStyles.textMedium]}>{buttonLabel}</Text>
                 </View>

@@ -2,7 +2,8 @@ import {StyleSheet, View, Text, TouchableHighlight, Button, TextInput, Alert } f
 import { useForm, Controller  } from 'react-hook-form';
 import { GlobalStyles } from "../GlobalStyles";
 import { useState, useRef } from "react";
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
+import RNPickerSelect from 'react-native-picker-select';
 
 
 export function LargeInput({control, isRequired = true, errors, field="EJEMPLO"}){
@@ -59,41 +60,41 @@ export function SmallInput({control, isRequired = true, errors, field="EJEMPLO"}
     )
 }
 
-export function MultOptionInput({control, isRequired = true, errors, field="EJEMPLO", options}){
-    const pickerRef = useRef();
-
-    function open() {
-        pickerRef.current.focus();
-    }
-
-    function close() {
-        pickerRef.current.blur();
-    }
+export function MultOptionInput({control, isRequired = true, errors, field="EJEMPLO", options = ["PRUEBA 1", "PRUEBA 2"]}){
 
     {/* Yes, the rendered text input is INSIDE the "Controller" */}
     return(
     
     <View style={styles.inputContainer}>
-        <Text style={[GlobalStyles.textMedium, GlobalStyles.lightGreenText, {textAlign: "left"}, {paddingLeft: 14}]}>{field}</Text>
-    <Controller
-        control={control}
-        rules={{
-        required: isRequired,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-            <Picker
-                ref={pickerRef}
-                selectedValue={selectedLanguage}
-                onValueChange={(itemValue, itemIndex) =>
-                setSelectedLanguage(itemValue)
-                }>
-                <Picker.Item label="Java" value="java" />
-                <Picker.Item label="JavaScript" value="js" />
-            </Picker>
-        )}
-        name={field}
-    />
-    {/* errors.field && <Text>Campo Requerido</Text> NOT WORKING FOR NOW, REPAIR LATER*/}
+        <Text 
+            style={[GlobalStyles.textMedium, GlobalStyles.lightGreenText, {textAlign: "left"}, {paddingLeft: 14}]}>{field}
+        </Text>
+
+        <View style={styles.textInputAreaSmall}>
+            <Controller
+                control={control}
+                rules={{
+                required: false,
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                    <RNPickerSelect
+                    textInputProps={{ pointerEvents: "none" }}
+                    onValueChange={onChange} // Update the value in react-hook-form
+                    onBlur={onBlur} // Trigger blur event for validation
+                    value={value || ""} // Bind to the value from react-hook-form
+                    items={options} // Options to populate the dropdown
+                    style={{
+                    inputAndroid: { borderBottomWidth: 1, padding: 0, color:"black", fontFamily: 'Roboto',}, // Styling for Android
+                    inputIOS: { borderBottomWidth: 0, paddingTop: 10, paddingBottom: 10, fontFamily: 'Roboto', color:"black",}, // Styling for iOS
+                    iconContainer: { top: 15, right: 12 },
+                    }}
+                    placeholder={{ label: "Select an option...", value: undefined }} // Placeholder for the dropdown
+                />
+                )}
+                name={field}
+            />
+            {/* errors.field && <Text>Campo Requerido</Text> NOT WORKING FOR NOW, REPAIR LATER*/}
+        </View>
     </View>
     
     )
