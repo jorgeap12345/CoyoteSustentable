@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { Text} from 'react-native';
 import { ButtonLarge, ButtonQRScreen, ButtonThin } from '../components/Buttons';
-import { useForm} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { LargeInput, MultOptionInput, SmallInput } from '../components/InputFields';
 import { DataField } from '../components/DataFields';
 

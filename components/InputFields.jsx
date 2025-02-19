@@ -6,7 +6,7 @@ import { Picker } from '@react-native-picker/picker';
 import RNPickerSelect from 'react-native-picker-select';
 
 
-export function LargeInput({control, isRequired = true, errors, field="EJEMPLO"}){
+export function LargeInput({control, isRequired = true, errors, field="EJEMPLO", inputValue="NOT SET"}){
     {/* Yes, the rendered text input is INSIDE the "Controller" */}
     return(
     
@@ -25,7 +25,7 @@ export function LargeInput({control, isRequired = true, errors, field="EJEMPLO"}
             value={value}
         />
         )}
-        name={field}
+        name={inputValue}
     />
     {/* errors.field && <Text>Campo Requerido</Text> NOT WORKING FOR NOW, REPAIR LATER*/}
     </View>
@@ -33,7 +33,7 @@ export function LargeInput({control, isRequired = true, errors, field="EJEMPLO"}
     )
 }
 
-export function SmallInput({control, isRequired = true, errors, field="EJEMPLO"}){
+export function SmallInput({control, isRequired = true, errors, field="EJEMPLO", inputValue="NOT SET"}){
     {/* Yes, the rendered text input is INSIDE the "Controller" */}
     return(
     
@@ -52,7 +52,7 @@ export function SmallInput({control, isRequired = true, errors, field="EJEMPLO"}
             value={value}
         />
         )}
-        name={field}
+        name={inputValue}
     />
     {/* errors.field && <Text>Campo Requerido</Text> NOT WORKING FOR NOW, REPAIR LATER*/}
     </View>
@@ -60,7 +60,7 @@ export function SmallInput({control, isRequired = true, errors, field="EJEMPLO"}
     )
 }
 
-export function MultOptionInput({control, isRequired = true, errors, field="EJEMPLO", options = ["PRUEBA 1", "PRUEBA 2"]}){
+export function MultOptionInput({control, isRequired = true, errors, field="EJEMPLO", options = ["PRUEBA 1", "PRUEBA 2"], inputValue="NOT SET"}){
 
     {/* Yes, the rendered text input is INSIDE the "Controller" */}
     return(
@@ -91,7 +91,7 @@ export function MultOptionInput({control, isRequired = true, errors, field="EJEM
                     placeholder={{ label: "Select an option...", value: undefined }} // Placeholder for the dropdown
                 />
                 )}
-                name={field}
+                name={inputValue}
             />
             {/* errors.field && <Text>Campo Requerido</Text> NOT WORKING FOR NOW, REPAIR LATER*/}
         </View>
@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
         width: '100%',
         maxWidth: 470,
         height: "auto",
+        gap: 6
     },
 
     textInputAreaLarge:{

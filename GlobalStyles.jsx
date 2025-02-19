@@ -48,8 +48,12 @@ export const GlobalStyles = StyleSheet.create(
 
         greenText:{
             color: "#053828"
+        },
+
+        scrollContainer:{
+            alignSelf: 'stretch',
+            maxHeight: "300",
         }
-        
         
     }
 )

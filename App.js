@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
 import { GlobalStyles } from "./GlobalStyles";
@@ -7,6 +6,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import ExamplePage from './pages/ExamplePage';
 import Dashboard from './pages/Dashboard'; // Importación de Dashboard
+import { Login } from './pages/Login';
+import { SignUp } from './pages/SignUp';
 
 export default function App() {
 
@@ -32,13 +33,10 @@ export default function App() {
     <SafeAreaProvider>
       <SafeAreaView style={GlobalStyles.appContainer}>
 
-        <Text>Open up App.js to start working on your app!</Text>
+      <SignUp/>
+ 
 
-        <Dashboard />   
-
-        <ExamplePage/>  
-
-        <StatusBar style="auto" />
+        
         
       </SafeAreaView>
     </SafeAreaProvider>
