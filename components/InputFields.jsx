@@ -15,7 +15,7 @@ export function LargeInput({control, isRequired = true, errors, field="EJEMPLO",
     <Controller
         control={control}
         rules={{
-        required: isRequired,
+        required: "Campo invalido: " + field,
         }}
         render={({ field: { onChange, onBlur, value } }) => (
         <TextInput
@@ -42,7 +42,7 @@ export function SmallInput({control, isRequired = true, errors, field="EJEMPLO",
     <Controller
         control={control}
         rules={{
-        required: isRequired,
+        required: "Campo invalido: " + field,
         }}
         render={({ field: { onChange, onBlur, value } }) => (
         <TextInput
@@ -74,7 +74,7 @@ export function MultOptionInput({control, isRequired = true, errors, field="EJEM
             <Controller
                 control={control}
                 rules={{
-                required: false,
+                required: "Campo invalido: " + field,
                 }}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <RNPickerSelect

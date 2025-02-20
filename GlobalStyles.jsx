@@ -52,7 +52,7 @@ export const GlobalStyles = StyleSheet.create(
 
         scrollContainer:{
             alignSelf: 'stretch',
-            maxHeight: "300",
+            maxHeight: "auto",
         }
         
     }
