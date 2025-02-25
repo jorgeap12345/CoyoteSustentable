@@ -93,15 +93,13 @@ const styles = StyleSheet.create({
     buttonQRScreenContainer:{
         justifyContent: 'center',
         alignItems: 'center',
-
+        alignSelf: "center",
         width: '100%',
         maxWidth: 470,
         minHeight: 66,
-        height: "auto",
-
         padding: 8,
-
-        borderRadius: 12
+        borderRadius: 12,
+        marginTop:"auto",
     }
 
 
