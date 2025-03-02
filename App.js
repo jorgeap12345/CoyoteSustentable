@@ -8,6 +8,7 @@ import ExamplePage from './pages/ExamplePage';
 import Dashboard from './pages/Dashboard'; // Importación de Dashboard
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
+import Qrscanner from './pages/Qrscanner';
 
 export default function App() {
 
@@ -33,8 +34,8 @@ export default function App() {
     <SafeAreaProvider>
       <SafeAreaView style={GlobalStyles.appContainer}>
 
-      <SignUp/>
- 
+      <Qrscanner/>
+
 
         
         
