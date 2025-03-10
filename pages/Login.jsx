@@ -5,9 +5,11 @@ import { ButtonLarge } from '../components/Buttons';
 import { StatusBar } from 'expo-status-bar';
 import { GlobalStyles } from '../GlobalStyles';
 import { useForm } from 'react-hook-form';
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useRouter } from "expo-router";
 
 
-export function Login(){
+export function Login({setIsInLogin}){
 
     const {
         control,
@@ -22,42 +24,47 @@ export function Login(){
 
     const onSubmit = (data) => console.log(data)
 
+    const router = useRouter();
+
     return(
-    <View style={styles.pageContainer}>
-        <Image source={logoSus1} style={styles.logoSustentabilidad}/>
+    <SafeAreaView style={GlobalStyles.appContainer}>
+        <View style={styles.pageContainer}>
+            <Image source={logoSus1} style={styles.logoSustentabilidad}/>
 
-        <View style={styles.titleContainer}>
-            <Text style={[GlobalStyles.textLarge, GlobalStyles.greenText]}>
-                ¡INICIA SESIÓN!
-            </Text>
-        </View>
-
-        <ScrollView style={GlobalStyles.scrollContainer}>
-            <View style={styles.formContainer}>
-                <LargeInput field="CORREO" control={control} inputValue="Email"/>
-                <LargeInput field="CONTRASEÑA" control={control} inputValue="Password"/>
-                <Text style={[GlobalStyles.textSmall, GlobalStyles.lightGreenText, GlobalStyles.regular, {letterSpacing: 0}]}>
-                    ¿Haz olvidado tu contraseña?
+            <View style={styles.titleContainer}>
+                <Text style={[GlobalStyles.textLarge, GlobalStyles.greenText]}>
+                    ¡INICIA SESIÓN!
                 </Text>
             </View>
-            
-        </ScrollView>
 
-        <View style={styles.buttonsContainer}>
-                        <ButtonLarge buttonLabel='INICIAR SESION' pressHandler={handleSubmit(onSubmit)}/>
-                        
-                    <View>
-                        <Text style={[GlobalStyles.textSmall, GlobalStyles.lightGreenText, GlobalStyles.regular, {letterSpacing: 0}]}>
-                                ¿No tienes cuenta?
-                        </Text>
-                        <Text onPress={() => Linking.openURL('http://google.com')} style={[GlobalStyles.textMedium, GlobalStyles.greenText]}>
-                            REGISTRATE
-                        </Text>
-                    </View>
-            </View>
-        
-                <StatusBar style="auto" />
-    </View>
+            <ScrollView style={GlobalStyles.scrollContainer}>
+                <View style={styles.formContainer}>
+                    <LargeInput field="CORREO" control={control} inputValue="Email"/>
+                    <LargeInput field="CONTRASEÑA" control={control} inputValue="Password"/>
+                    <Text style={[GlobalStyles.textSmall, GlobalStyles.lightGreenText, GlobalStyles.regular, {letterSpacing: 0}]}>
+                        ¿Haz olvidado tu contraseña?
+                    </Text>
+                </View>
+                
+            
+
+            <View style={styles.buttonsContainer}>
+                    <ButtonLarge buttonLabel="INICIAR SESION" pressHandler={() => router.push("/student/QRScanner")} />
+                            
+                        <View>
+                            <Text style={[GlobalStyles.textSmall, GlobalStyles.lightGreenText, GlobalStyles.regular, {letterSpacing: 0}]}>
+                                    ¿No tienes cuenta?
+                            </Text>
+                            <Text onPress={() => setIsInLogin(false)} style={[GlobalStyles.textMedium, GlobalStyles.greenText]}>
+                                REGISTRATE
+                            </Text>
+                        </View>
+                </View>
+                </ScrollView>
+            
+                    <StatusBar style="auto" />
+        </View>
+    </SafeAreaView>
     )
 }
 

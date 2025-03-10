@@ -6,8 +6,10 @@ import { ButtonLarge } from '../components/Buttons';
 import { StatusBar } from 'expo-status-bar';
 import { GlobalStyles } from '../GlobalStyles';
 import { useForm } from 'react-hook-form';
+import { useRouter } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-function StudentSignUp({pageToggle}){
+function StudentSignUp({pageToggle, setIsInLogin}){
 
     const {
         control,
@@ -32,6 +34,8 @@ function StudentSignUp({pageToggle}){
             Alert.alert("Error", firstError);
         }
     };
+
+    const router = useRouter();
 
     return(
         <>
@@ -50,9 +54,12 @@ function StudentSignUp({pageToggle}){
 
                     <MultOptionInput field="BECA A ASPIRAR" control={control} inputValue="Beca"
                     options={[
-                        { label: "Beca Academica", value: "Beca Academica"},
-                        { label: "Beca Socioeconomica", value: "Beca Socioeconomica"},
-                        { label: "No me pagan lo suficiente para saber todas las becas", value: "Lol"}
+                        { label: "Beca de excelencia", value: "Beca de excelencia"},
+                        { label: "Beca académica", value: "Beca académica"},
+                        { label: "Beca socioeconómica", value: "Beca socioeconómica"},
+                        { label: "Beca de extensión universitaria (Cultura verde)", value: "Beca de extensión universitaria (Cultura verde)"},
+                        { label: "Beca de extensión universitaria (Cultura y deporte)", value: "Beca de extensión universitaria (Cultura y deporte)"},
+                        { label: "Beca a grupo de atención prioritario", value: "Beca a grupo de atención prioritario"},
                     ]} />
                 </View>
                 
@@ -60,10 +67,10 @@ function StudentSignUp({pageToggle}){
 
                 <View style={styles.buttonsContainer}>
 
-                    <ButtonLarge buttonLabel='REGISTRARSE' pressHandler={handleSubmit(onSubmit, TestError)}/>
+                    <ButtonLarge buttonLabel='REGISTRARSE' pressHandler={() => router.push("/student/QRScanner")}/>
                             
                     <View style={{gap: 10}}>
-                        <Text onPress={() => Linking.openURL('http://google.com')} style={[GlobalStyles.textSmall, GlobalStyles.greenText]}>
+                        <Text onPress={() => setIsInLogin(true)} style={[GlobalStyles.textSmall, GlobalStyles.greenText]}>
                             YA TENGO UNA CUENTA
                         </Text>
 
@@ -77,7 +84,7 @@ function StudentSignUp({pageToggle}){
     )
 }
 
-function VolunteerSignUp({pageToggle}){
+function VolunteerSignUp({pageToggle, setIsInLogin}){
 
     const {
         control,
@@ -102,6 +109,8 @@ function VolunteerSignUp({pageToggle}){
             Alert.alert("Error", firstError);
         }
     };
+
+    const router = useRouter();
 
     return(
         <>
@@ -124,10 +133,10 @@ function VolunteerSignUp({pageToggle}){
 
                 <View style={styles.buttonsContainer}>
 
-                    <ButtonLarge buttonLabel='REGISTRARSE' pressHandler={handleSubmit(onSubmit, TestError)}/>
+                    <ButtonLarge buttonLabel='REGISTRARSE' pressHandler={() => router.push("/student/QRScanner")}/>
                             
                     <View style={{gap: 10}}>
-                        <Text onPress={() => Linking.openURL('http://google.com')} style={[GlobalStyles.textSmall, GlobalStyles.greenText]}>
+                        <Text onPress={() => setIsInLogin(true)} style={[GlobalStyles.textSmall, GlobalStyles.greenText]}>
                             YA TENGO UNA CUENTA
                         </Text>
 
@@ -141,26 +150,30 @@ function VolunteerSignUp({pageToggle}){
     )
 }
 
-export function SignUp(){
+export function SignUp({setIsInLogin}){
 
     const [isStudentSignUpDisplayed, setDisplayedPage] = useState(true)
 
     const pageToggleHandler = (() => {setDisplayedPage(!isStudentSignUpDisplayed)})
 
     return(
-    <View style={styles.pageContainer}>
-        <Image source={logoSus1} style={styles.logoSustentabilidad}/>
+    <SafeAreaView style={GlobalStyles.appContainer}>
+        <View style={styles.pageContainer}>
+            <Image source={logoSus1} style={styles.logoSustentabilidad}/>
 
-        <View style={styles.titleContainer}>
-            <Text style={[GlobalStyles.textLarge, GlobalStyles.greenText]}>
-                ¡REGISTRATE!
-            </Text>
+            <View style={styles.titleContainer}>
+                <Text style={[GlobalStyles.textLarge, GlobalStyles.greenText]}>
+                    ¡REGISTRATE!
+                </Text>
+            </View>
+
+            {isStudentSignUpDisplayed ? 
+            <StudentSignUp pageToggle={pageToggleHandler} setIsInLogin={setIsInLogin}/> : 
+            <VolunteerSignUp pageToggle={pageToggleHandler} setIsInLogin={setIsInLogin}/>}
+            
+            <StatusBar style="auto" />
         </View>
-
-        {isStudentSignUpDisplayed ? <StudentSignUp pageToggle={pageToggleHandler}/> : <VolunteerSignUp pageToggle={pageToggleHandler}/>}
-        
-        <StatusBar style="auto" />
-    </View>
+    </SafeAreaView>
     )
 }
 

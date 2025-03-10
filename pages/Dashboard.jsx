@@ -5,26 +5,33 @@ import logoU from '../assets/images/logoU.png';
 import logoSus from '../assets/images/logoSus.png';
 import { ButtonLarge } from '../components/Buttons';
 import { StatusBar } from 'expo-status-bar';
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useRouter } from "expo-router";
 
 
-const Dashboard = () => {
+const Dashboard = ({setIsInLogin}) => {
+
+    const router = useRouter();
+
 return (
-    <View style={styles.container}>
-        <Image source={logoU} style={styles.bannerUniversidad} />
-        <Image source={logoSus} style={styles.logoSustentabilidad} />
-        
-        <View style={styles.textContainer}>
-            <Text style={[GlobalStyles.textLarge, GlobalStyles.greenText]}>Bienvenido(a)</Text>
-        </View>
+    <SafeAreaView style={GlobalStyles.appContainer}>
+        <View style={styles.container}>
+            <Image source={logoU} style={styles.bannerUniversidad} />
+            <Image source={logoSus} style={styles.logoSustentabilidad} />
+            
+            <View style={styles.textContainer}>
+                <Text style={[GlobalStyles.textLarge, GlobalStyles.greenText]}>Bienvenido(a)</Text>
+            </View>
 
-        <View style={styles.buttonsContainer}>
-            <ButtonLarge buttonLabel='INICIAR SESION'/>
-            <ButtonLarge buttonLabel='REGISTRARSE' buttonColor='#00984A'/>
-        </View>
+            <View style={styles.buttonsContainer}>
+                <ButtonLarge buttonLabel='INICIAR SESION' pressHandler={() => {setIsInLogin(true), router.push("./UserManager") }}/>
+                <ButtonLarge buttonLabel='REGISTRARSE' pressHandler={() => {setIsInLogin(false), router.push("./UserManager")}} buttonColor='#00984A'/>
+            </View>
 
-        <StatusBar style="auto" />
- 
-    </View>
+            <StatusBar style="auto" />
+    
+        </View>
+    </SafeAreaView>
 );
 };
 

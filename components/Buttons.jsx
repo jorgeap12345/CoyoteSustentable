@@ -3,10 +3,6 @@ import { GlobalStyles } from "../GlobalStyles";
 
 export function ButtonLarge({buttonColor = "#0b532e", buttonLabel = "TEXTO DE BOTON", pressHandler}){
 
-    const onPressButton = () => {
-        Alert.alert('You tapped the button!');
-    };
-    
     return(
         <TouchableHighlight  
             style={[styles.buttonLargeContainer, {backgroundColor: buttonColor}]} 
@@ -19,7 +15,7 @@ export function ButtonLarge({buttonColor = "#0b532e", buttonLabel = "TEXTO DE BO
     )
 }
 
-export function ButtonThin({buttonColor = "#0B532E", buttonLabel = "TEXTO DE BOTON"}){
+export function ButtonThin({buttonColor = "#0B532E", buttonLabel = "TEXTO DE BOTON", pressHandler}){
 
     const onPressButton = () => {
         Alert.alert('You tapped the button!');
@@ -29,7 +25,7 @@ export function ButtonThin({buttonColor = "#0B532E", buttonLabel = "TEXTO DE BOT
         <TouchableHighlight  
             style={[styles.buttonThinContainer, {backgroundColor: buttonColor}]} 
             underlayColor="rgb(12, 69, 39)" 
-            onPress={onPressButton}>
+            onPress={pressHandler}>
                 <View  >
                     <Text style={[GlobalStyles.textSmall]}>{buttonLabel}</Text>
                 </View>
@@ -37,7 +33,7 @@ export function ButtonThin({buttonColor = "#0B532E", buttonLabel = "TEXTO DE BOT
     )
 }
 
-export function ButtonQRScreen({buttonColor = "#96D09B", buttonLabel = "TEXTO DE BOTON"}){
+export function ButtonQRScreen({buttonColor = "#96D09B", buttonLabel = "TEXTO DE BOTON", pressHandler}){
     
     const onPressButton = () => {
         Alert.alert('You tapped the button!');
@@ -47,7 +43,7 @@ export function ButtonQRScreen({buttonColor = "#96D09B", buttonLabel = "TEXTO DE
         <TouchableHighlight  
             style={[styles.buttonQRScreenContainer, {backgroundColor: buttonColor}]} 
             underlayColor="#88c08c" 
-            onPress={onPressButton}>
+            onPress={pressHandler}>
                 <View  >
                     <Text style={[GlobalStyles.textSmall, GlobalStyles.lightGreenText]}>{buttonLabel}</Text>
                 </View>
@@ -93,7 +89,7 @@ const styles = StyleSheet.create({
     buttonQRScreenContainer:{
         justifyContent: 'center',
         alignItems: 'center',
-        alignSelf: "center",
+        
         width: '100%',
         maxWidth: 470,
         minHeight: 66,

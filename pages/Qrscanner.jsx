@@ -1,95 +1,208 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, Alert, AppState, Linking } from 'react-native';
 import { GlobalStyles } from '../GlobalStyles';
-import { HeaderBar } from '../components/HeaderBar';
+import { HeaderBar } from '../components/StudentHeaderBar';
 import { StatusBar } from 'expo-status-bar';
 import { ButtonQRScreen } from '../components/Buttons';
-import {logoU} from '../assets/images/logoU.png';
+import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useCameraPermissions, CameraView} from "expo-camera";
 
-const Qrscanner = () => {
+export default function Qrscanner({workDayState, setWorkDayState}) {
+
+    function DefaultViewport(){
+
+        return(
+            <>
+                <View style={styles.qrIconContainer}>
+                    <Ionicons name="qr-code-outline" size={130} color="#053828"></Ionicons>
+                </View>
+
+                <ButtonQRScreen buttonLabel='Habilitar Camara'
+                pressHandler={async () => {
+                    const permissionResponse = await requestCameraPermision();
+                    if (permissionResponse?.granted) {
+                        setViewportScreen(<ActiveCameraViewport/>)
+                    } else {
+                        Alert.alert("Ha habido un error con los permisos de camara.");
+                    }}}
+                />
+            </>
+        )
+    }
+
+    function ActiveCameraViewport(){
+
+        const qrLock = useRef(false);
+
+        return(
+            <>
+            <CameraView
+                style={[StyleSheet.absoluteFillObject, { borderRadius: 40 }]}
+                facing="back"
+                onBarcodeScanned={({ data }) => {
+                    if (data && !qrLock.current) {
+                        qrLock.current = true;
+
+                        setTimeout(async () => {
+                            await Alert.alert(data);
+
+                            setWorkDayState(prevState => {
+                                const newState = !prevState;
+                                setViewportScreen(newState ? <ActiveWorkDay /> : <FinalizedWorkDay />);
+                                return newState;
+                            });
+                        }, 300);
+                    }
+                }}
+            />
+            </>
+        )
+    }
+
+    function ActiveWorkDay(){
+
+        return(
+            <>
+                <View style={styles.qrIconContainer}>
+                    <Text style={[GlobalStyles.textMedium, GlobalStyles.lightGreenText]}>El registro se ha realizado exitosamente!</Text>
+                </View>
+
+                <View style={styles.registerTextContainer}>
+                    <Text style={[GlobalStyles.textSmall, GlobalStyles.lightGreenText, {textAlign: "left"}]}>Contenido: </Text>
+                    <Text style={[GlobalStyles.textSmall, GlobalStyles.lightGreenText, {textAlign: "left"}]}>Inicio: Lunes 25 de Noviembre de 2024, 14:00:00 pm </Text>
+                </View>
+
+                <ButtonQRScreen buttonLabel='Finalizar Jornada'
+                pressHandler={async () => {
+                    const permissionResponse = await requestCameraPermision();
+                    if (permissionResponse?.granted) {
+                        setViewportScreen(<ActiveCameraViewport/>)
+                    } else {
+                        Alert.alert("Ha habido un error con los permisos de camara.");
+                    }}}
+                />
+            </>
+        )
+    }
+
+    function FinalizedWorkDay(){
+
+        return(
+            <>
+                          
+                    <View style={styles.qrIconContainer}>
+                        <Text style={[GlobalStyles.textMedium, GlobalStyles.lightGreenText]}>El registro se ha realizado exitosamente!</Text>
+                    </View>
+
+                    <View style={styles.registerTextContainer}>
+                        <Text style={[GlobalStyles.textSmall, GlobalStyles.lightGreenText, {textAlign: "left"}]}>Contenido: </Text>
+                        <Text style={[GlobalStyles.textSmall, GlobalStyles.lightGreenText, {textAlign: "left"}]}>Inicio: Lunes 25 de Noviembre de 2024, 14:00:00 pm </Text>
+                        <Text style={[GlobalStyles.textSmall, GlobalStyles.lightGreenText, {textAlign: "left"}]}>Final: Lunes 25 de Noviembre de 2024, 17:00:00 pm </Text>
+                        <Text style={[GlobalStyles.textSmall, GlobalStyles.lightGreenText, {textAlign: "left"}]}>Total: 03:00:00 </Text>
+                    </View>
+
+                    <ButtonQRScreen buttonLabel='Iniciar otra jornada'
+                    pressHandler={async () => {
+                        const permissionResponse = await requestCameraPermision();
+                        if (permissionResponse?.granted) {
+                            setViewportScreen(<ActiveCameraViewport/>)
+                        } else {
+                            Alert.alert("Ha habido un error con los permisos de camara.");
+                        }}}
+                    />
+            </>
+        )
+    }
+
+    
+
+    const [viewportScreen, setViewportScreen] = useState(<DefaultViewport/>)
+    //Container states index:
+    // DefaultViewport = Default, inactive and capable of asking for camera access
+    // ActiveCameraViewport = Active camera, viewport should display camera footage and be able to scan QR codes
+    // ActiveWorkDay = Work hours started, diplays time of registry start and button to go back to active camera and end the day
+    // FinalizedWorkDay = Work hours finished, diplays time of registry start, time of the registry end, and button to go back to active camera and start another registry
+
+
+    //Camera permision handlers
+    const [cameraPermision, requestCameraPermision] =  useCameraPermissions()
+    const isCameraPremissionGranted = Boolean(cameraPermision?.granted)
+
+    
+
+    useEffect(() => {
+        
+    })
+
     return (
-        <View style={GlobalStyles.appContainer}>
-            <HeaderBar />
+        <SafeAreaView style={GlobalStyles.appContainer}> 
+            <View>
+                <HeaderBar />
 
-            
+                
+                <ScrollView>
 
-            {/* Contenedor del QR */}
-            <View style={styles.qrContainer}>
-            
-            {/* Imagen del QR */}
-            <Image source={logoU} style={styles.qrImage} />
-            
-            {/* Botón para activar la cámara */}
-            <ButtonQRScreen style={styles.ButtonQRScreen} buttonLabel='Permitir el acceso a la camara'  />
+                    <View style={styles.qrContainer}>
 
+                        {viewportScreen}
+                        
+
+                        
+                        
+                    </View>
+
+                    
+                    <View style={styles.instructionsContainer}>
+                        {workDayState ? <Text style={[GlobalStyles.textMedium, GlobalStyles.greenText, {letterSpacing: 3}]}>JORNADA EN CURSO</Text> : <></>}
+                        <Text style={[GlobalStyles.textSmall, GlobalStyles.greenText, {textAlign: "justify"}]}>✅ Utiliza tu cámara para escanear el código QR</Text>
+                        <Text style={[GlobalStyles.textSmall, GlobalStyles.greenText, {textAlign: "justify"}]}>✅ Revisa que los datos sean correctos</Text>
+                    </View>
+                </ScrollView>
+
+                <StatusBar style="auto" />
             </View>
-
-            {/* Instrucciones */}
-            <View style={styles.instructionsContainer}>
-                <Text style={[GlobalStyles.textSmall, styles.instruction]}>✅ Utiliza tu cámara para escanear el código QR</Text>
-                <Text style={[GlobalStyles.textSmall, styles.instruction]}>✅ Revisa que los datos sean correctos</Text>
-            </View>
-
-            <StatusBar style="auto" />
-        </View>
+        </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
     qrContainer: {
         flex:1,
-        height: '100%',
+
+        height: 470,
         alignSelf: 'stretch',
-        marginTop: 20,
+
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#B9E0BD',
+
         padding: 20,
+
         borderRadius: 40,
-        paddingLeft: 20,
-        paddingRight: 20,
-        marginBottom: 20,
         
     },
-    qrImage: {
-        width: 100,
-        height: 100,
-        resizeMode: 'contain',
-    },
-    cameraButton: {
-        marginTop: 20,
-        backgroundColor: '#A4D4AE',
-        padding: 15,
-        borderRadius: 8,
-        alignItems: 'center',
-    },
-    cameraButtonText: {
-        color: '#053828',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
+
     instructionsContainer: {
-        alignSelf: 'center', // Centra el contenedor y permite que su altura se ajuste
-        alignItems: 'center', // Centra los elementos horizontalmente
-        justifyContent: 'flex-end', // Los elementos se alinean abajo dentro del contenedor
+        alignSelf: 'center',
+        justifyContent: 'flex-end',
+        
         gap: 10,
+
         paddingVertical: 35,
         paddingHorizontal: 25,
-        backgroundColor: '#E6FFE8',
-        paddingTop: 20,
-    },
-    instruction: {
-        color: '#053828',
-        marginBottom: 5,
-        textAlign: "justify"
+
     },
 
-    ButtonQRScreen :{
-        backgroundColor: '#A4D4AE',
-        padding: 15,
-        borderRadius: 8,
+    qrIconContainer:{
+        flex: 1,
         alignItems: 'center',
-    }
-});
+        justifyContent: 'center',
+    },
 
-export default Qrscanner;
+    registerTextContainer:{
+        flex: 2,
+        justifyContent: "flex-end",
+        paddingBottom: 25
+    },
+});
