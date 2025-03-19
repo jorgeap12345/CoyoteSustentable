@@ -2,12 +2,12 @@
   "expo": {
     "name": "Coyote Sustentable",
     "slug": "CS",
-    "scheme": "Coyote-Sustentable",
+    "scheme": "coyote-sustentable",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/logoSus1.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "splash": {
       "image": "./assets/images/logoSus.png",
       "resizeMode": "contain",
@@ -39,7 +39,8 @@
             "./assets/fonts/Roboto-VariableFont_wdth,wght.ttf"
           ]
         }
-      ]
+      ],
+      "expo-router"
     ],
     "extra": {
       "eas": {

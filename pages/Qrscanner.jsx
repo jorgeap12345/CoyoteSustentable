@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, Alert, AppState, Linking } from 'react-native';
 import { GlobalStyles } from '../GlobalStyles';
-import { HeaderBar } from '../components/StudentHeaderBar';
+import { StudentHeaderBar } from '../components/HeaderBar';
 import { StatusBar } from 'expo-status-bar';
 import { ButtonQRScreen } from '../components/Buttons';
 import { Ionicons } from '@expo/vector-icons';
@@ -138,7 +138,7 @@ export default function Qrscanner({workDayState, setWorkDayState}) {
     return (
         <SafeAreaView style={GlobalStyles.appContainer}> 
             <View>
-                <HeaderBar />
+                <StudentHeaderBar />
 
                 
                 <ScrollView>

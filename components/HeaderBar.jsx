@@ -8,7 +8,7 @@ import { useRouter } from "expo-router";
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
 
-export function HeaderBar({ sideMenuHandler }) {
+export function StudentHeaderBar() {
 
     const router = useRouter();
 
@@ -28,7 +28,7 @@ export function HeaderBar({ sideMenuHandler }) {
                             <Text style={[GlobalStyles.textLarge, GlobalStyles.greenText, {textAlign: "left"}]}>Inicio</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => router.push("./QRScanner")}>
+                        <TouchableOpacity onPress={() => router.push("./Profile")}>
                             <Text style={[GlobalStyles.textLarge, GlobalStyles.greenText, {textAlign: "left"}]}>Perfil</Text>
                         </TouchableOpacity>
                         

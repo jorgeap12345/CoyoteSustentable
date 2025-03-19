@@ -1,7 +1,7 @@
 {
   "name": "cs",
   "version": "1.0.0",
-  "main": "expo-router/entry",
+  "main": "expo-router/entry.js",
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
@@ -14,7 +14,7 @@
     "expo-barcode-scanner": "^13.0.1",
     "expo-camera": "^16.0.16",
     "expo-font": "~13.0.3",
-    "expo-router": "^4.0.17",
+    "expo-router": "~4.0.18",
     "expo-splash-screen": "^0.29.22",
     "expo-status-bar": "~2.0.1",
     "expo-system-ui": "~4.0.8",
