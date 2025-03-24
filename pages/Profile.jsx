@@ -5,7 +5,7 @@ import { View, Image, TouchableOpacity, StyleSheet, Text, Dimensions } from 'rea
 import { Ionicons } from '@expo/vector-icons';
 import { GlobalStyles } from "../GlobalStyles";
 
-export default function DefaultViewport(){
+export default function Profile(){
 
       return(
             <SafeAreaView style={GlobalStyles.appContainer}> 
